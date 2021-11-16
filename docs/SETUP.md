@@ -25,7 +25,7 @@ This method requires you to create a developer account on [iot.tuya.com](https:/
 4. Go to App -> App SDK -> Development in the nav drawer. Click "Create" and enter whatever you want for the package names and Channel ID (for the Android package name, you must enter a string beginning with `com.`). Take note of the **Channel ID** you entered. This is equivalent to the `schema` value needed in step 7. Ignore any app key and app secret values you see in this section as they are not used.
 5. Go to Cloud -> Development and click the project you created earlier. Then click "Link Device". Click the "Link devices by Apps" tab, and click "Add Apps". Check the app you just created and click "Ok".
 6. Put your devices into linking mode.  This process is specific to each type of device, find instructions in the Tuya Smart app. Usually this consists of turning it on and off several times or holding down a button.
-7. On the command line, run `tuya-cli link --api-key <your api key> --api-secret <your api secret> --schema <your schema/Channel ID> --ssid <your WiFi name> --password <your WiFi password> --region us`.  For the region parameter, choose the two-letter country code from `us`, `eu`, and `cn` that is geographically closest to you.
+7. On the command line, run `tuya-cli link --api-key <your api key> --api-secret <your api secret> --schema <your schema/Channel ID> --ssid <your WiFi name> --password <your WiFi password> --region us --bind-addr <local address of the wireless interface to broadcast on>`.  For the region parameter, choose the two-letter country code from `us`, `eu`, and `cn` that is geographically closest to you.
 8. Your devices should link in under a minute and the parameters required to control them will be printed out to the console. If you experience problems, first make sure any smart phone/tablet app that you use with your devices is completely closed and not attempting to communicate with any of the devices.
 
 ### Troubleshooting
@@ -38,6 +38,8 @@ This means that one of the parameters you're passing in (`api-key`, `api-secret`
 
 This can happen for a number of reasons. It means that the device never authenticated against Tuya's API (although it *does not* necessarily mean that the device could not connect to WiFi). Try the following:
 - Making sure that your computer is connected to your network via WiFi **only** (unplug ethernet if necessary)
+
+  NOTE: Mostly for pre-v1.18.0 tuya-cli. For tuya-cli >= v1.18.0, use the --bind-addr option to choose the wireless network interface to broadcast on
 - Making sure that your network is 2.4 Ghz (devices will also connect if you have both 2.4 Ghz and 5 Ghz bands under the same SSID)
 - Using a different OS
 - Removing special characters from your network's SSID
